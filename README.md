@@ -1,6 +1,8 @@
 ![CI GitHubAction](https://github.com/peterarsentev/job4j_mock/actions/workflows/maven.yml/badge.svg)
 
-## **[CheckDev](https://checkdev.ru/index)** — пробные собеседования в IT
+## **[CheckDev](https://checkdev.ru/index)** — пробные собеседования в IT 
+
+изменения_02.08.2024
 
 ___
 
