@@ -97,6 +97,24 @@ class InterviewRepositoryTest {
     }
 
     @Test
+    public void whenInterviewFindAllByTopicId() {
+        var interview = new Interview();
+        interview.setMode(1);
+        interview.setSubmitterId(1);
+        interview.setTitle("title");
+        interview.setAdditional("additional");
+        interview.setContactBy("contact");
+        interview.setApproximateDate("30.02.2070");
+        interview.setCreateDate(new Timestamp(System.currentTimeMillis()));
+        interview.setTopicId(1);
+        entityManager.createQuery("delete from interview").executeUpdate();
+        entityManager.persist(interview);
+        var interviews = interviewRepository.findAllByTopicId(1);
+        assertTrue(interviews.size() > 0);
+        Assertions.assertEquals(interviews.get(0), interview);
+    }
+
+    @Test
     public void whenGetInterviewsBy3onPageAndFindByTopicId() {
         entityManager.createQuery("delete from interview").executeUpdate();
         var interviewsList = IntStream

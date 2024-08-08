@@ -22,7 +22,6 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.in;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
@@ -136,6 +135,16 @@ class InterviewServiceTest {
         interviewWithTopicId.setMode(1);
         when(interviewRepository.findByMode(1)).thenReturn(List.of(interviewWithTopicId));
         var actual = interviewService.findByMode(1);
+        assertThat(actual, is(List.of(interviewWithTopicId)));
+    }
+
+    @Test
+    public void whenFindAllByTopicIdWithTopicIdIsNull() {
+        Interview interviewWithTopicId = interview;
+        interviewWithTopicId.setTopicId(1);
+        interviewWithTopicId.setMode(1);
+        when(interviewRepository.findAllByTopicId(1)).thenReturn(List.of(interviewWithTopicId));
+        var actual = interviewService.findAllByTopicId(1);
         assertThat(actual, is(List.of(interviewWithTopicId)));
     }
 

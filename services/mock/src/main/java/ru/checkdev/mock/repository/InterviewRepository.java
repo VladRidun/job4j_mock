@@ -19,7 +19,20 @@ public interface InterviewRepository extends JpaRepository<Interview, Integer> {
 
     List<Interview> findByMode(int mode);
 
+    /**
+     * Метод возвращает страницу собеседований по указанной теме.
+     *
+     * @param topicId   ID Interview
+     *
+     */
+
     Page<Interview> findByTopicId(int topicId, Pageable pageable);
+    /**
+     * Метод возвращает все собеседования по указанной теме.
+     *
+     * @param topicId   ID Interview
+     *
+     */
     List<Interview> findAllByTopicId(int topicId);
 
     /**
