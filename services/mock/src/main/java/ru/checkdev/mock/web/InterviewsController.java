@@ -64,4 +64,12 @@ public class InterviewsController {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(interviewService.findByTopicsIds(topicIds, page, size));
     }
+
+    @GetMapping("/findAllByTopicId/{topicId}")
+    public ResponseEntity<List<Interview>> findAllByTopicId(
+            @PathVariable int topicId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(interviewService.findAllByTopicId(topicId));
+    }
 }

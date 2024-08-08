@@ -86,6 +86,15 @@ public class InterviewService {
         return false;
     }
 
+    public List<Interview> findAllByTopicId(int topicId) {
+        return interviewRepository.findAllByTopicId(topicId).stream()
+                .peek(interview -> {
+                    if (interview.getTopicId() == null) {
+                        interview.setTopicId(1);
+                    }
+                }).collect(Collectors.toList());
+    }
+
     /**
      * Метод обновляет статус собеседования.
      *

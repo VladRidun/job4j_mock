@@ -13,6 +13,7 @@ import java.util.List;
 @Service
 public class CategoriesService {
     private final TopicsService topicsService;
+    private final InterviewsService interviewsService;
 
     public List<CategoryDTO> getAll() throws JsonProcessingException {
         var text = new RestAuthCall("http://localhost:9902/categories/").get();
@@ -63,6 +64,24 @@ public class CategoriesService {
         var categoriesDTO = getPopularFromDesc();
         for (var categoryDTO : categoriesDTO) {
             categoryDTO.setTopicsSize(topicsService.getByCategory(categoryDTO.getId()).size());
+        }
+        return categoriesDTO;
+    }
+
+    public List<CategoryDTO> getCategoryWithCountInterview() throws JsonProcessingException {
+        var categoriesDTO = getPopularFromDesc();
+        for (var categoryDTO : categoriesDTO) {
+            var topicsDtoList = topicsService.getByCategory(categoryDTO.getId());
+            categoryDTO.setTopicsSize(topicsDtoList.size());
+            int countInterview = 0;
+            for (var topicDto : topicsDtoList) {
+                for (var interviewDto : interviewsService.getAllByTopicId(topicDto.getId())) {
+                    if (interviewDto.getStatus() == 1) {
+                        countInterview++;
+                    }
+                }
+            }
+            categoryDTO.setInterviewCount(countInterview);
         }
         return categoriesDTO;
     }

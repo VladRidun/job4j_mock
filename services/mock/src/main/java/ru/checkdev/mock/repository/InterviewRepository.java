@@ -20,6 +20,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Integer> {
     List<Interview> findByMode(int mode);
 
     Page<Interview> findByTopicId(int topicId, Pageable pageable);
+    List<Interview> findAllByTopicId(int topicId);
 
     /**
      * Метод обновляет статус собеседования.

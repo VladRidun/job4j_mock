@@ -13,7 +13,6 @@ import ru.job4j.site.service.*;
 import javax.servlet.http.HttpServletRequest;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -36,7 +35,7 @@ public class IndexController {
                 "Главная", "/"
         );
         try {
-            model.addAttribute("categories", categoriesService.getMostPopular());
+            model.addAttribute("categories", categoriesService.getCategoryWithCountInterview());
             var token = getToken(req);
             if (token != null) {
                 var userInfo = authService.userInfo(token);
@@ -52,7 +51,6 @@ public class IndexController {
                 .map(i -> profilesService.getProfileById(i.getSubmitterId()))
                 .filter(Optional::isPresent)
                 .map(Optional::get).collect(Collectors.toSet());
-
         model.addAttribute("new_interviews", interviewDTOList);
         model.addAttribute("profiles", profileDtoList);
         return "index";
